@@ -32,7 +32,7 @@ public class Card
 		
 		if (suit.equals("Hearts"))
 		{
-			name += "♥";
+			name += "♡";
 		}
 		else if (suit.equals("Clubs"))
 		{
@@ -40,7 +40,7 @@ public class Card
 		}
 		else if(suit.equals("Diamonds"))
 		{
-			name += "♦";
+			name += "♢";
 		}
 		else if(suit.equals("Spades"))
 		{
