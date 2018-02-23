@@ -3,7 +3,6 @@ package blackjack.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Scanner;
 import blackjack.view.BlackJackFrame;
 
 import blackjack.model.Card;
@@ -11,10 +10,9 @@ import blackjack.model.Card;
 public class BlackJackController 
 {
 	private List<Card> deck;
-	List<Card> userCards;
-	List<Card> dealerCards;
-	Scanner input = new Scanner(System.in);
-	BlackJackFrame frame = new BlackJackFrame(this);
+	private List<Card> userCards;
+	private List<Card> dealerCards;
+	private BlackJackFrame frame = new BlackJackFrame(this);
 	
 	public BlackJackController()
 	{
@@ -26,26 +24,26 @@ public class BlackJackController
 		dealerCards = new ArrayList<Card>();
 	}
 	
-	public void start()
-	{
-		System.out.println("Welcome to Blackjack");
-		boolean quit = false;
-		while(quit == false)
-		{
-			runGamePlay();
-			System.out.println("Continue Playing?");
-			if(!isYes())
-			{
-				quit = true;
-			}
-		}
-		System.out.println("Thanks for playing! Come back soon!");
-	}
+//	public void start()
+//	{
+//		System.out.println("Welcome to Blackjack");
+//		boolean quit = false;
+//		while(quit == false)
+//		{
+//			runGamePlay();
+//			System.out.println("Continue Playing?");
+//			if(!isYes())
+//			{
+//				quit = true;
+//			}
+//		}
+//		System.out.println("Thanks for playing! Come back soon!");
+//	}
 	
-	public void runGamePlay()
-	{
-		System.out.println("[INSERT GAMEPLAY HERE]");
-	}
+//	public void runGamePlay()
+//	{
+//		System.out.println("[INSERT GAMEPLAY HERE]");
+//	}
 	
 	public int cardsWorth(ArrayList<Card> cards)
 	{
@@ -97,13 +95,4 @@ public class BlackJackController
 		}
 	}
 	
-	public boolean isYes()
-	{
-		System.out.println("Type \"Yes\" or \"No:\"");
-		if(input.nextLine().toLowerCase().contains("y"))
-		{
-			return true;
-		}
-		return false;
-	}
 }
