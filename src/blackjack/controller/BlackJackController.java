@@ -79,4 +79,31 @@ public class BlackJackController
 		}
 	}
 	
+	public void dealerDraws()
+	{
+		dealerCards.add(deck.get(0));
+		deck.remove(0);
+	}
+	
+	public void playerDraws()
+	{
+		userCards.add(deck.get(0));
+		deck.remove(0);
+	}
+
+	public List<Card> getUserCards() {
+		return userCards;
+	}
+
+	public List<Card> getDealerCards() {
+		return dealerCards;
+	}
+
+	public void setUserCards(List<Card> userCards) {
+		this.userCards = userCards;
+	}
+
+	public void setDealerCards(List<Card> dealerCards) {
+		this.dealerCards = dealerCards;
+	}
 }

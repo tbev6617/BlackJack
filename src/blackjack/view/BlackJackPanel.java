@@ -8,7 +8,7 @@ import blackjack.controller.BlackJackController;
 
 public class BlackJackPanel extends JPanel
 {
-	private BlackJackController appController;
+	private BlackJackController app;
 	private SpringLayout appLayout;
 	
 	private JTextArea gameArea;
@@ -20,37 +20,47 @@ public class BlackJackPanel extends JPanel
 	private JLabel playerName;
 	private JTextArea playerCards;
 	private JTextArea playerScore;
-	private int cash;
-	private JTextArea playerCash;
 	
-	private JButton newCard;
-	private JButton stay;
-	private JButton newGame;
+//	private JLabel cashName;
+//	private JLabel betName;
+//	private JTextArea betArea;
+//	private int betCash;
+//	private JTextArea betPlayerCash;
+//	private int cash;
+//	private JTextArea playerCash;
+	
+	private JButton hitButton;
+	private JButton stayButton;
 	
 	public BlackJackPanel(BlackJackController appController)
 	{
 		super();
-		this.appController = appController;
+		app = appController;
 		appLayout = new SpringLayout();
+		gameArea = new JTextArea();
+		hitButton = new JButton("Hit");
+		stayButton = new JButton("Done");
 		
+		dealerName = new JLabel("Dealer");
 		dealerCards = new JTextArea("--");
 		dealerCards.setEditable(false);
 		dealerScore = new JTextArea("0");
 		dealerScore.setEditable(false);
 		
+		playerName = new JLabel("Player");
 		playerCards = new JTextArea("--");
 		playerCards.setEditable(false);
 		playerScore = new JTextArea("0");
 		playerScore.setEditable(false);
 		
-		cash = 500;
-		playerCash = new JTextArea(cash + "$");
-		playerCash.setEditable(false);
+//		cash = 500;
+//		playerCash = new JTextArea(cash + "$");
+//		playerCash.setEditable(false);
 		
 		setupPanel();
 		setupLayout();
 		setupListeners();
-		setupScrollPane();
+		startNewRound();
 	}
 	
 	public void setupPanel()
@@ -58,16 +68,24 @@ public class BlackJackPanel extends JPanel
 		this.setBackground(new Color(175, 35, 35));
 		this.setLayout(appLayout);
 		
+		this.add(playerName);
+		this.add(dealerName);
 		this.add(dealerCards);
 		this.add(dealerScore);
 		this.add(playerCards);
 		this.add(playerScore);
-		this.add(playerCash);
+//		this.add(playerCash);
 		
 	}
 	
 	public void setupLayout()
 	{
+		appLayout.putConstraint(SpringLayout.SOUTH, playerName, -6, SpringLayout.NORTH, playerCards);
+		appLayout.putConstraint(SpringLayout.WEST, playerName, 0, SpringLayout.WEST, dealerName);
+		
+		appLayout.putConstraint(SpringLayout.WEST, dealerName, 0, SpringLayout.WEST, dealerCards);
+		appLayout.putConstraint(SpringLayout.SOUTH, dealerName, -6, SpringLayout.NORTH, dealerCards);
+		
 		appLayout.putConstraint(SpringLayout.WEST, dealerCards, 61, SpringLayout.WEST, this);
 		appLayout.putConstraint(SpringLayout.NORTH, dealerCards, 61, SpringLayout.NORTH, this);
 		appLayout.putConstraint(SpringLayout.EAST, dealerCards, -18, SpringLayout.WEST, dealerScore);
@@ -80,8 +98,8 @@ public class BlackJackPanel extends JPanel
 		appLayout.putConstraint(SpringLayout.WEST, playerScore, 0, SpringLayout.WEST, dealerScore);
 		appLayout.putConstraint(SpringLayout.EAST, playerScore, 0, SpringLayout.EAST, dealerScore);
 		
-		appLayout.putConstraint(SpringLayout.NORTH, playerCash, 0, SpringLayout.NORTH, playerCards);
-		appLayout.putConstraint(SpringLayout.WEST, playerCash, 59, SpringLayout.EAST, playerScore);
+//		appLayout.putConstraint(SpringLayout.NORTH, playerCash, 0, SpringLayout.NORTH, playerCards);
+//		appLayout.putConstraint(SpringLayout.WEST, playerCash, 59, SpringLayout.EAST, playerScore);
 		
 		appLayout.putConstraint(SpringLayout.NORTH, playerScore, 0, SpringLayout.NORTH, playerCards);
 		appLayout.putConstraint(SpringLayout.WEST, playerScore, 0, SpringLayout.WEST, dealerScore);
@@ -99,11 +117,14 @@ public class BlackJackPanel extends JPanel
 	
 	public void startNewRound()
 	{
-		
+		app.resetDeck();
 	}
-	
-	public void setupScrollPane()
+	public void dealerTurn()
 	{
-
+		if(app.cardsWorth(app.getDealerCards()) < 17)
+		{
+			app.dealerDraws();
+		}
+		//TODO
 	}
 }
