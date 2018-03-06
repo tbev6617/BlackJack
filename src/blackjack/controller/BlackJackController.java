@@ -24,28 +24,12 @@ public class BlackJackController
 		dealerCards = new ArrayList<Card>();
 	}
 	
-//	public void start()
-//	{
-//		System.out.println("Welcome to Blackjack");
-//		boolean quit = false;
-//		while(quit == false)
-//		{
-//			runGamePlay();
-//			System.out.println("Continue Playing?");
-//			if(!isYes())
-//			{
-//				quit = true;
-//			}
-//		}
-//		System.out.println("Thanks for playing! Come back soon!");
-//	}
+	public void start()
+	{
+		
+	}
 	
-//	public void runGamePlay()
-//	{
-//		System.out.println("[INSERT GAMEPLAY HERE]");
-//	}
-	
-	public int cardsWorth(ArrayList<Card> cards)
+	public int cardsWorth(List<Card> cards)
 	{
 		int cardsWorth = 0;
 		int numAces = 0;

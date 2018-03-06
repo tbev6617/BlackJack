@@ -18,8 +18,8 @@ public class BlackJackFrame extends JFrame
 	{
 		this.setContentPane(appPanel);
 		this.setTitle("Black Jack");
-		this.setSize(500, 400);
-		this.setResizable(true);
+		this.setSize(500, 300);
+		this.setResizable(false);
 		this.setVisible(true);	
 	}
 }
