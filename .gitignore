@@ -3,3 +3,4 @@ bin/
 .DS_Store
 bin/blackjack/controller/BlackJackController.class
 bin/blackjack/controller/BlackJackRunner.class
+bin/blackjack/controller/BlackJackController.class

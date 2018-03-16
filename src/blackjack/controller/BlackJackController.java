@@ -3,16 +3,20 @@ package blackjack.controller;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import blackjack.view.BlackJackFrame;
+import java.util.Scanner;
+
 
 import blackjack.model.Card;
+import blackjack.view.PopupDisplay;
 
 public class BlackJackController 
 {
 	private List<Card> deck;
-	private List<Card> userCards;
+	private List<Card> playerCards;
 	private List<Card> dealerCards;
-	private BlackJackFrame frame = new BlackJackFrame(this);
+//	private BlackJackFrame frame = new BlackJackFrame(this);
+	private Scanner input;
+	private PopupDisplay popup;
 	
 	public BlackJackController()
 	{
@@ -20,13 +24,52 @@ public class BlackJackController
 		resetDeck();
 		printDeck();
 		
-		userCards = new ArrayList<Card>();
+		playerCards = new ArrayList<Card>();
 		dealerCards = new ArrayList<Card>();
+		input = new Scanner(System.in);
+		popup = new PopupDisplay();
 	}
 	
 	public void start()
 	{
+		popup.displayText("Welcome to Blackjack");
+		boolean quit = false;
+		while(quit == false)
+		{
+			runGamePlay();
+			if(!isYes(popup.getResponse("Continue to next round?")))
+			{
+				quit = true;
+			}
+		}
+		popup.displayText("Good game! Thanks for playing!");
+	}
+	
+	public void runGamePlay()
+	{
+		resetDeck();
+		playerCards.clear();
+		dealerCards.clear();
 		
+		dealerDraws();
+		playerDraws();
+		playerDraws();
+		boolean stay = false;
+		while(stay == false)
+		{
+			String text = "";
+			text += "Dealer's card:";
+			for(Card card : dealerCards)
+			{
+				text += " " + card;
+			}
+			text += "\nYour cards:";
+			for(Card card : playerCards)
+			{
+				text += " " + card;
+			}
+			popup.displayText(text);
+		}
 	}
 	
 	public int cardsWorth(List<Card> cards)
@@ -34,10 +77,10 @@ public class BlackJackController
 		int cardsWorth = 0;
 		int numAces = 0;
 		
-		for(Card card : cards)
+		for(int i = 0; i < cards.size(); i++)
 		{
-			cardsWorth += card.getWorth();
-			if (card.getWorth() == 1)
+			cardsWorth += cards.get(i).getWorth();
+			if (cards.get(i).getWorth() == 1)
 			{
 				numAces++;
 			}
@@ -46,7 +89,7 @@ public class BlackJackController
 		if(numAces > 0 && cardsWorth < 12)
 		{
 			numAces--;
-			cardsWorth += 10;
+			cardsWorth += 10; //since we added the 1 already
 		}
 		
 		if(cardsWorth > 21)
@@ -87,23 +130,16 @@ public class BlackJackController
 	
 	public void playerDraws()
 	{
-		userCards.add(deck.get(0));
+		playerCards.add(deck.get(0));
 		deck.remove(0);
 	}
-
-	public List<Card> getUserCards() {
-		return userCards;
-	}
-
-	public List<Card> getDealerCards() {
-		return dealerCards;
-	}
-
-	public void setUserCards(List<Card> userCards) {
-		this.userCards = userCards;
-	}
-
-	public void setDealerCards(List<Card> dealerCards) {
-		this.dealerCards = dealerCards;
+	
+	public boolean isYes(String text)
+	{
+		if (text.contains("y") || text.contains(("Y")))
+		{
+			return true;
+		}
+		return false;
 	}
 }
