@@ -4,6 +4,7 @@ public class Card
 {
 	private String name;
 	private int worth;
+	//THIS WHOLE CLASS IS AN ABSTRACTION
 	public Card(int worth, String suit)
 	{
 		this.worth = worth;

@@ -21,8 +21,6 @@ public class BlackJackController
 	public BlackJackController()
 	{
 		deck = new ArrayList<Card>();
-		resetDeck();
-		printDeck();
 		
 		playerCards = new ArrayList<Card>();
 		dealerCards = new ArrayList<Card>();
@@ -37,6 +35,8 @@ public class BlackJackController
 		while(quit == false)
 		{
 			runGamePlay();
+			
+			//check if they're done
 			if(!isYes(popup.getResponse("Continue to next round?")))
 			{
 				quit = true;
@@ -48,30 +48,100 @@ public class BlackJackController
 	public void runGamePlay()
 	{
 		resetDeck();
+		//printDeck();
 		playerCards.clear();
 		dealerCards.clear();
 		
 		dealerDraws();
 		playerDraws();
-		playerDraws();
 		boolean stay = false;
 		while(stay == false)
 		{
-			String text = "";
-			text += "Dealer's card:";
-			for(Card card : dealerCards)
+			playerDraws();
+			showStats();
+			
+			//Check for stay or over 21
+			if (cardsWorth(playerCards) == 0)
 			{
-				text += " " + card;
+				stay = true;
 			}
-			text += "\nYour cards:";
-			for(Card card : playerCards)
+			else if (!isYes(popup.getResponse("Draw another card?")))
 			{
-				text += " " + card;
+				stay = true;
 			}
-			popup.displayText(text);
+			
+		}
+		while(cardsWorth(dealerCards) < 17 && cardsWorth(dealerCards) != 0)
+		{
+			dealerDraws();
+			showStats();
+		}
+		if(cardsWorth(playerCards) > cardsWorth(dealerCards))
+		{
+			playerWins();
+		}
+		else if (cardsWorth(dealerCards) > cardsWorth(playerCards))
+		{
+			dealerWins();
+		}
+		else
+		{
+			tie();
 		}
 	}
 	
+	public void showStats()
+	{
+		String text = "";
+		
+		//Dealer
+		text += "Dealer's cards:";
+		for(Card card : dealerCards)
+		{
+			text += " " + card;
+		}
+		
+		if (cardsWorth(dealerCards) == 0)
+		{
+			text += "(Bust)";
+		}
+		else
+		{
+			text += " (Worth " + cardsWorth(dealerCards) + ")";
+		}
+		
+		//You
+		text += "\nYour cards:";
+		for(Card card : playerCards)
+		{
+			text += " " + card;
+		}
+		
+		if (cardsWorth(playerCards) == 0)
+		{
+			text += "(Bust)";
+		}
+		else
+		{
+			text += " (Worth " + cardsWorth(playerCards) + ")";
+		}
+		
+		
+		popup.displayText(text);
+	}
+	
+	public void playerWins()
+	{
+		popup.displayText("YOU WIN");
+	}
+	public void dealerWins()
+	{
+		popup.displayText("YOU LOSE");
+	}
+	public void tie()
+	{
+		popup.displayText("YOU TIE");
+	}
 	public int cardsWorth(List<Card> cards)
 	{
 		int cardsWorth = 0;
@@ -124,12 +194,14 @@ public class BlackJackController
 	
 	public void dealerDraws()
 	{
+		popup.displayText("DEALER IS DRAWING A CARD");
 		dealerCards.add(deck.get(0));
 		deck.remove(0);
 	}
 	
 	public void playerDraws()
 	{
+		popup.displayText("YOU ARE DRAWING A CARD");
 		playerCards.add(deck.get(0));
 		deck.remove(0);
 	}
@@ -137,6 +209,14 @@ public class BlackJackController
 	public boolean isYes(String text)
 	{
 		if (text.contains("y") || text.contains(("Y")))
+		{
+			return true;
+		}
+		if (text.equalsIgnoreCase("sure"))
+		{
+			return true;
+		}
+		if(text.equalsIgnoreCase("hit"))
 		{
 			return true;
 		}
