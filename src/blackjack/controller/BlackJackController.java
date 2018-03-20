@@ -208,15 +208,8 @@ public class BlackJackController
 	
 	public boolean isYes(String text)
 	{
-		if (text.contains("y") || text.contains(("Y")))
-		{
-			return true;
-		}
-		if (text.equalsIgnoreCase("sure"))
-		{
-			return true;
-		}
-		if(text.equalsIgnoreCase("hit"))
+		text = text.toLowerCase();
+		if (text.contains(("y")) || text.equals("") || text.equals("sure"))
 		{
 			return true;
 		}
