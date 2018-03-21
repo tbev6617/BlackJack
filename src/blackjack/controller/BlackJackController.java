@@ -194,18 +194,16 @@ public class BlackJackController
 	
 	public void dealerDraws()
 	{
-		String text = "DEALER DRAWS " + deck.get(0);
+		popup.displayText("DEALER DRAWS " + deck.get(0));
 		dealerCards.add(deck.get(0));
 		deck.remove(0);
-		popup.displayText(text);
 	}
 	
 	public void playerDraws()
 	{
-		String text = "YOU DRAW " + deck.get(0);
+		popup.displayText("YOU DRAW " + deck.get(0));
 		playerCards.add(deck.get(0));
 		deck.remove(0);
-		popup.displayText(text);
 	}
 	
 	public boolean isYes(String text)
