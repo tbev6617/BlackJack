@@ -61,7 +61,7 @@ public class BlackJackController
 			showStats();
 			
 			//Check for stay or over 21
-			if (cardsWorth(playerCards) == 0)
+			if (cardsWorth(playerCards) == 0 || cardsWorth(playerCards) == 21)
 			{
 				stay = true;
 			}
@@ -194,16 +194,18 @@ public class BlackJackController
 	
 	public void dealerDraws()
 	{
-		popup.displayText("DEALER IS DRAWING A CARD");
+		String text = "DEALER DRAWS " + deck.get(0);
 		dealerCards.add(deck.get(0));
 		deck.remove(0);
+		popup.displayText(text);
 	}
 	
 	public void playerDraws()
 	{
-		popup.displayText("YOU ARE DRAWING A CARD");
+		String text = "YOU DRAW " + deck.get(0);
 		playerCards.add(deck.get(0));
 		deck.remove(0);
+		popup.displayText(text);
 	}
 	
 	public boolean isYes(String text)

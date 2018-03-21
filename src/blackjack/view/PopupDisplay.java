@@ -12,7 +12,7 @@ public class PopupDisplay
 	public PopupDisplay()
 	{
 		icon = new ImageIcon(getClass().getResource("images/cartoonCards.jpg"));
-		windowTitle = "Popup";
+		windowTitle = "Blackjack";
 	}
 	
 	public void displayText(String message)
