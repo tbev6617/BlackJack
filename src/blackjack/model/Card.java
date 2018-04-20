@@ -1,10 +1,8 @@
 package blackjack.model;
-
 public class Card 
 {
 	private String name;
 	private int worth;
-	//THIS WHOLE CLASS IS AN ABSTRACTION
 	public Card(int worth, String suit)
 	{
 		this.worth = worth;
@@ -31,6 +29,7 @@ public class Card
 			break;
 		}
 		
+		//The symbols for the suits don't show up on the PDF. I couldn't get around this.
 		if (suit.equals("Hearts"))
 		{
 			name += "♡";

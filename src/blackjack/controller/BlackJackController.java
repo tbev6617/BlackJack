@@ -55,6 +55,7 @@ public class BlackJackController
 		dealerDraws();
 		playerDraws();
 		boolean stay = false;
+		//startComplexity
 		while(stay == false)
 		{
 			playerDraws();
@@ -71,6 +72,7 @@ public class BlackJackController
 			}
 			
 		}
+		//endComplexity
 		while(cardsWorth(dealerCards) < 17 && cardsWorth(dealerCards) != 0)
 		{
 			dealerDraws();
@@ -169,7 +171,7 @@ public class BlackJackController
 		
 		return cardsWorth;
 	}
-	
+	//startAbstraction
 	public void resetDeck()
 	{
 		deck.clear();
@@ -183,6 +185,7 @@ public class BlackJackController
 		}
 		Collections.shuffle(deck);
 	}
+	//endAbstraction
 	
 	public void printDeck()
 	{
